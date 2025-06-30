@@ -8,7 +8,7 @@ namespace TrilhaNetAzureDesafio.Models
     {
         public FuncionarioLog() { }
 
-        public FuncionarioLog(Funcionario funcionario, TipoAcao tipoAcao, string partitionKey, string rowKey)
+        public FuncionarioLog(Funcionario funcionario, TipoAcao tipoAcao, string rowKey)
         {
             base.Id = funcionario.Id;
             base.Nome = funcionario.Nome;
@@ -20,10 +20,11 @@ namespace TrilhaNetAzureDesafio.Models
             base.DataAdmissao = funcionario.DataAdmissao;
             TipoAcao = tipoAcao;
             JSON = JsonSerializer.Serialize(funcionario);
-            PartitionKey = partitionKey;
+            PartitionKey = funcionario.Id.ToString();
             RowKey = rowKey;
         }
 
+        public int Id { get; }
         public TipoAcao TipoAcao { get; set; }
         public string JSON { get; set; }
         public string PartitionKey { get; set; }
